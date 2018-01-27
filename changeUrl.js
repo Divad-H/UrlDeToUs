@@ -18,12 +18,6 @@ browser.tabs.onUpdated.addListener((id, changeInfo, tab) => {
   initializePageAction(tab);
 });
 
-function onUpdated(tab) {
-  initializePageAction(tab);
-}
-
-function onError(error) {}
-
 function changeUrl(tabInfo) {
   if (tabInfo != null) {
     var url = tabInfo.url.replace(/\/de-de\//i, "/en-us/");
@@ -34,7 +28,6 @@ function changeUrl(tabInfo) {
         tabInfo.id,
         { url: url }
       );
-      updating.then(onUpdated, onError);
     }
   }
 }
