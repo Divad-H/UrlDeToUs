@@ -1,3 +1,4 @@
+
 function initializePageAction(tab) {
   if (tab.url.toLowerCase().includes("/de-de/") || tab.url.toLowerCase().includes("/de/") || tab.url.toLowerCase().includes("/de_de/")) {
     browser.pageAction.show(tab.id);
@@ -49,8 +50,21 @@ function changeURLAuto(requestDetails) {
   }
 }
 
-browser.webRequest.onBeforeRequest.addListener(
+function onError(error) {
+  console.log(`Error: ${error}`);
+}
+
+function onGot(item) {
+  var matchPattern = "https://msdn.microsoft.com/*";
+  if (item.matchPattern) {
+    matchPattern = item.matchPattern;
+  }
+  browser.webRequest.onBeforeRequest.addListener(
   changeURLAuto,
-  {urls: ["https://msdn.microsoft.com/*"]},
+  {urls: [matchPattern]},
   ["blocking"]
 );
+}
+
+var getting = browser.storage.local.get("color");
+getting.then(onGot, onError);
