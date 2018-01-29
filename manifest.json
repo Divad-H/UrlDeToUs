@@ -1,4 +1,11 @@
 {
+  "applications": {
+    "gecko": {
+      "id": "{8342fad8-78cf-4662-a6e1-bd10a2da9d37}",
+      "strict_min_version": "42.0"
+    }
+  },
+  
   "name": "UrlDeToUs",
   "description": "Adds a button for pages with an URL containing '/de-de/', '/de_de/' or '/de/' which tries to open the en-us version of that URL",
   "manifest_version": 2,
