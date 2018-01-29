@@ -18,11 +18,16 @@ browser.tabs.onUpdated.addListener((id, changeInfo, tab) => {
   initializePageAction(tab);
 });
 
-function changeUrl(tabInfo) {
+function changeURL(url) {
+  var result = url.replace(/\/de-de\//i, "/en-us/");
+  result = result.replace(/\/de\//i, "/en/");
+  result = result.replace(/\/de_de\//i, "/en_us/");
+  return result;
+}
+
+function changeUrlTab(tabInfo) {
   if (tabInfo != null) {
-    var url = tabInfo.url.replace(/\/de-de\//i, "/en-us/");
-    url = url.replace(/\/de\//i, "/en/");
-    url = url.replace(/\/de_de\//i, "/en_us/");
+    var url = changeURL(tabInfo.url);
     if (url != tabInfo.url) {
       var updating = browser.tabs.update( 
         tabInfo.id,
@@ -32,4 +37,20 @@ function changeUrl(tabInfo) {
   }
 }
 
-browser.pageAction.onClicked.addListener(changeUrl);
+browser.pageAction.onClicked.addListener(changeUrlTab);
+
+function changeURLAuto(requestDetails) {
+  var url = changeURL(requestDetails.url);
+  if (url != requestDetails.url) {
+    return { redirectUrl: url };
+  }
+  else {
+    return {cancel: false};
+  }
+}
+
+browser.webRequest.onBeforeRequest.addListener(
+  changeURLAuto,
+  {urls: ["https://msdn.microsoft.com/*"]},
+  ["blocking"]
+);

@@ -2,13 +2,12 @@
   "name": "UrlDeToUs",
   "description": "Adds a button for pages with an URL containing '/de-de/', '/de_de/' or '/de/' which tries to open the en-us version of that URL",
   "manifest_version": 2,
-  "version": "1.0",
-  "permissions": ["activeTab", "tabs"],
+  "version": "1.1",
+  "permissions": ["activeTab", "tabs", "webRequest", "webRequestBlocking", "<all_urls>"],
 
   "icons": {
     "48": "icons/translate-48.png"
   },
-  
   "background": {
     "scripts": ["changeUrl.js"]
   },
