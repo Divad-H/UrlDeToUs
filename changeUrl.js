@@ -54,17 +54,21 @@ function onError(error) {
   console.log(`Error: ${error}`);
 }
 
-function onGot(item) {
-  var matchPattern = "https://msdn.microsoft.com/*";
-  if (item.matchPattern) {
-    matchPattern = item.matchPattern;
+function trySetMatchPattern(pattern){
+  var matchPatterns = ["https://msdn.microsoft.com/*"];
+  if (pattern) {
+    matchPatterns = pattern.split(";");
   }
   browser.webRequest.onBeforeRequest.addListener(
-  changeURLAuto,
-  {urls: [matchPattern]},
-  ["blocking"]
-);
+    changeURLAuto,
+    {urls: matchPatterns},
+    ["blocking"]
+  );
 }
 
-var getting = browser.storage.local.get("color");
+function onGot(item) {
+  trySetMatchPattern(item.urlMatchPattern);
+}
+
+var getting = browser.storage.local.get("urlMatchPattern");
 getting.then(onGot, onError);

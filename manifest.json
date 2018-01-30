@@ -9,7 +9,7 @@
   "name": "UrlDeToUs",
   "description": "Adds a button for pages with an URL containing '/de-de/', '/de_de/' or '/de/' which tries to open the en-us version of that URL",
   "manifest_version": 2,
-  "version": "1.1",
+  "version": "1.2",
   "permissions": ["activeTab", "tabs", "webRequest", "webRequestBlocking", "storage", "<all_urls>"],
 
   "icons": {

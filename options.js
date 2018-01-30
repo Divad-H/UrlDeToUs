@@ -8,12 +8,13 @@ function saveOptions(e) {
 
 function restoreOptions() {
 
-  function setCurrentChoice(result) {
-    document.querySelector("#urlMatchPattern").value = result.urlMatchPattern || "https://msdn.microsoft.com/*";
-  }
-
+  
   function onError(error) {
     console.log(`Error: ${error}`);
+  }
+
+  function setCurrentChoice(result) {
+    document.querySelector("#urlMatchPattern").value = result.urlMatchPattern || "https://msdn.microsoft.com/*";
   }
 
   var getting = browser.storage.local.get("urlMatchPattern");
